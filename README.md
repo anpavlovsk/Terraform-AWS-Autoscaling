@@ -7,7 +7,7 @@ To provision the AWS Autoscaling group, like all other Terraform configurations,
 
 ##  Autoscaling the EC2 instance with Load Testing
 
-Now that you verified the Autoscaling group/policy and related components are set up correctly, it’s time to test if the Auto Scaling features work. How? By adding load on the instance recently launched with the AutoScaling group.
+Now letstest  if the Auto Scaling features work by adding load on the instance recently launched with the AutoScaling group.
 
 1. Open the AWS EC2 instance launched with the Autoscaling group using an SSH client.
 
@@ -20,10 +20,11 @@ sudo apt install stress-ng
 3. Run the stress-ng command below to generate the stress load on the instance.
 
 The below command contains the following flags:
-
---cpu �tes the number of cores on which load will be generated.
--v – Enables verbose mode.
---timeout – Specifies the time for which load should be generated.
+````
+--cpu  		Denotes the number of cores on which load will be generated
+-v 		Enables verbose mode
+--timeout  	Specifies the time for which load should be generated.
+````
 
 ````
 sudo stress-ng --cpu 4 -v --timeout 3000s
