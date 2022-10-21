@@ -7,7 +7,7 @@ resource "aws_launch_configuration" "aws_autoscale_conf" {
 # Defining the instance type of the AWS EC2 instance
   instance_type = "t2.micro"
 # Defining the Key that will be used to access the AWS EC2 instance
-  key_name = "automateinfra"
+  key_name = "lpav_vigrinia_keys"
 }
 
 # Creating the autoscaling group within us-east-1a availability zone
@@ -17,7 +17,7 @@ resource "aws_autoscaling_group" "mygroup" {
 # Specifying the name of the autoscaling group
   name                      = "autoscalegroup"
 # Defining the maximum number of AWS EC2 instances while scaling
-  max_size                  = 2
+  max_size                  = 3
 # Defining the minimum number of AWS EC2 instances while scaling
   min_size                  = 1
 # Grace period is the time after which AWS EC2 instance comes into service before checking health.
@@ -31,20 +31,37 @@ resource "aws_autoscaling_group" "mygroup" {
 # Scaling group is dependent on autoscaling launch configuration because of AWS EC2 instance configurations
   launch_configuration      = aws_launch_configuration.aws_autoscale_conf.name
 }
-# Creating the autoscaling schedule of the autoscaling group
 
-resource "aws_autoscaling_schedule" "mygroup_schedule" {
-  scheduled_action_name  = "autoscalegroup_action"
+# Creating the autoscaling schedule of the autoscaling group
+resource "aws_autoscaling_schedule" "mygroup_schedule_up" {
+  scheduled_action_name  = "autoscalegroup_action_up"
 # The minimum size for the Auto Scaling group
   min_size               = 1
 # The maxmimum size for the Auto Scaling group
-  max_size               = 2
+  max_size               = 3
 # Desired_capacity is the number of running EC2 instances in the Autoscaling group
   desired_capacity       = 1
 # defining the start_time of autoscaling if you think traffic can peak at this time.
-  start_time             = "2022-02-09T18:00:00Z"
+# monday-friday scale up at 09:00 
+  recurrence = "00 09 * * 1-5"
   autoscaling_group_name = aws_autoscaling_group.mygroup.name
 }
+
+# Creating the autoscaling schedule of the autoscaling group
+resource "aws_autoscaling_schedule" "mygroup_schedule_down" {
+  scheduled_action_name  = "autoscalegroup_action_down"
+# The minimum size for the Auto Scaling group
+  min_size               = 1
+# The maxmimum size for the Auto Scaling group
+  max_size               = 1
+# Desired_capacity is the number of running EC2 instances in the Autoscaling group
+  desired_capacity       = 1
+# defining the start_time of autoscaling if you think traffic can peak at this time.
+# monday-friday scale down at 18:000
+  recurrence = "00 18 * * 1-5"
+  autoscaling_group_name = aws_autoscaling_group.mygroup.name
+}
+
 
 # Creating the autoscaling policy of the autoscaling group
 resource "aws_autoscaling_policy" "mygroup_policy" {
