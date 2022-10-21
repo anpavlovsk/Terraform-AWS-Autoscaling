@@ -7,7 +7,7 @@ To provision the AWS Autoscaling group, like all other Terraform configurations,
 
 ##  Autoscaling the EC2 instance with Load Testing
 
-Now letstest  if the Auto Scaling features work by adding load on the instance recently launched with the AutoScaling group.
+Now lets test  if the Auto Scaling features work by adding load on the instance recently launched with the AutoScaling group.
 
 1. Open the AWS EC2 instance launched with the Autoscaling group using an SSH client.
 
