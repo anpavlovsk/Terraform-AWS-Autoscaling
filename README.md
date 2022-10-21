@@ -1,13 +1,11 @@
 # Terraform-AWS-Autoscaling
-Terraform AWS Autoscaling
+## Building the Terraform Configuration for an AWS Autoscaling Group
 
-````
-terraform init
-terraform plan
-terraform apply
-````
+The code in file main.tf creates an autoscaling launch configuration (web_config) and provisions an Autoscaling group (autoscalegroup). The Autoscaling group also comes with its components (aws_autoscaling_schedule and aws_autoscaling_policy).
 
-Autoscaling the EC2 instance with Load Testing
+To provision the AWS Autoscaling group, like all other Terraform configurations, Terraform uses three commands in sequence (terraform init, terraform plan, and terraform apply).
+
+##  Autoscaling the EC2 instance with Load Testing
 
 Now that you verified the Autoscaling group/policy and related components are set up correctly, it’s time to test if the Auto Scaling features work. How? By adding load on the instance recently launched with the AutoScaling group.
 
